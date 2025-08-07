@@ -1,4 +1,4 @@
-package s38;
+package s38.a;
 
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;

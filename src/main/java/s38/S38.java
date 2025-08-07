@@ -45,12 +45,12 @@ public class S38 {
             S38PacketPlayerListItem s38 = ((S38PacketPlayerListItem)e.packet);
             if (s38.getAction()==S38PacketPlayerListItem.Action.ADD_PLAYER) {
                 for (S38PacketPlayerListItem.AddPlayerData apd : s38.getEntries()) {
-                    print("§a+ §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""));
+                    print("§7[§a+§7] §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""), false);
                 }
             }
             if (s38.getAction()==S38PacketPlayerListItem.Action.REMOVE_PLAYER) {
                 for (S38PacketPlayerListItem.AddPlayerData apd : s38.getEntries()) {
-                    print("§c- §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""));
+                    print("§7[§c-§7] §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""), false);
                 }
             }
         }
@@ -63,8 +63,12 @@ public class S38 {
     }
 
     public static void print(String msg) {
+        print(msg, true);
+    }
+
+    public static void print(String msg, boolean b) {
         if (mc.thePlayer == null) return;
-        mc.thePlayer.addChatMessage(new ChatComponentText(PREFIX + msg));
+        mc.thePlayer.addChatMessage(new ChatComponentText((b ? PREFIX : "") + msg));
     }
 
     @Getter
@@ -97,11 +101,11 @@ public class S38 {
         public void processCommand(ICommandSender sender, String[] args) {
             if (args.length == 1 && args[0].equalsIgnoreCase("ping")) {
                 extra = !extra;
-                print("§7ping: " + (extra ? "§aEnabled" : "§cDisabled"));
+                print("§7ping: " + (extra ? "§a§lON" : "§c§lOFF"));
                 return;
             }
             master = !master;
-            print(master ? "§aEnabled" : "§cDisabled");
+            print(master ? "§a§lON" : "§c§lOFF");
         }
 
         @Override
