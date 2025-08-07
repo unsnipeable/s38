@@ -124,17 +124,4 @@ public class S38 {
             return this.getCommandName().compareTo(o.getCommandName());
         }
     }
-
-
-    @Mixin(NetworkManager.class)
-    public static class packet {
-        @Inject(method = "channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/Packet;)V", at = @At("HEAD"), cancellable = true)
-        public void receivePacket(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_, CallbackInfo ci) {
-            S38.event receivePacketEvent = new S38.event(p_channelRead0_2_);
-            net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(receivePacketEvent);
-            if (receivePacketEvent.isCanceled()) {
-                ci.cancel();
-            }
-        }
-    }
 }
