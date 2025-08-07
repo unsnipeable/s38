@@ -43,15 +43,19 @@ public class S38 {
         if (e.packet instanceof S38PacketPlayerListItem) {
             if (!master) return;
             S38PacketPlayerListItem s38 = ((S38PacketPlayerListItem)e.packet);
-            if (s38.getAction()==S38PacketPlayerListItem.Action.ADD_PLAYER) {
-                for (S38PacketPlayerListItem.AddPlayerData apd : s38.getEntries()) {
-                    print("§7[§a+§7] §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""), false);
+            try {
+                if (s38.getAction() == S38PacketPlayerListItem.Action.ADD_PLAYER) {
+                    for (S38PacketPlayerListItem.AddPlayerData apd : s38.getEntries()) {
+                        print("§7[§a+§7] §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""), false);
+                    }
                 }
-            }
-            if (s38.getAction()==S38PacketPlayerListItem.Action.REMOVE_PLAYER) {
-                for (S38PacketPlayerListItem.AddPlayerData apd : s38.getEntries()) {
-                    print("§7[§c-§7] §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""), false);
+                if (s38.getAction() == S38PacketPlayerListItem.Action.REMOVE_PLAYER) {
+                    for (S38PacketPlayerListItem.AddPlayerData apd : s38.getEntries()) {
+                        print("§7[§c-§7] §f" + apd.getDisplayName().getFormattedText() + (extra ? (" §7(" + apd.getPing() + "ms)") : ""), false);
+                    }
                 }
+            } catch (Exception ignored) {
+
             }
         }
     }
